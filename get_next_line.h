@@ -13,9 +13,18 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
+
+# include <stdlib.h>
+# include <unistd.h>
+
+typedef struct s_list
+{
+	char			*content;
+	struct s_list	*next;
+}					t_list;
 
 char	*get_next_line(int fd);
 

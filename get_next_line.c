@@ -10,26 +10,56 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
+
+void	clear_list(t_list **lst)
+{
+	return ;
+}
+
+char	*get_line_from_list(t_list *lst)
+{
+	return (&"");
+}
+
+void	insert_to_list(t_list **lst, char *content)
+{
+	return ;
+}
+
+void	generate_list(t_list **lst, int fd)
+{
+	int		bytes_read;
+	char	*buf;
+
+	while (!found_newline(*lst))
+	{
+		buf = malloc(BUFFER_SIZE + 1);
+		if (buf == NULL)
+			return ;
+		bytes_read = read(fd, buf, BUFFER_SIZE);
+		// TODO: Check for read returning error (-1)
+		if (!bytes_read)
+		{
+			free(buf);
+			return ;
+		}
+		buf[bytes_read] = '\0';
+		insert_to_list(lst, buf);
+	}
+}
 
 char	*get_next_line(int fd)
 {
-	char	*buf;
-	size_t	byte_r;
-	size_t	bytes_read;
-
-	if (fd <= 0 || BUFFER_SIZE <= 0)
+	static t_list	*lst;
+	char			*line;
+	
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	buf = (char *)malloc(BUFFER_SIZE * sizeof(char));
-	while (1)
-	{
-		byte_r = read(fd, buf, 1);
-		if (byte_r == 0 || bytes_read > BUFFER_SIZE - 1)
-			break;
-		if (byte_r < 0)
-			return (NULL);
-		bytes_read += byte_r;
-	}
-	buf[bytes_read] = '\0';
-	return (buf);
+	generate_list(&lst, fd);
+	if (lst == NULL)
+		return (NULL);
+	line = get_line_from_list(lst);
+	clear_list(&lst);
+	return (line);
 }
