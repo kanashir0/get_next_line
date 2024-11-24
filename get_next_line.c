@@ -6,7 +6,7 @@
 /*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:14:07 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/11/24 11:33:20 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:53:28 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ void	clear_list(t_list **lst)
 
 char	*get_line_from_list(t_list *lst)
 {
-	return (&"");
+	int		line_len;
+	char	*line;
+
+	if (lst == NULL)
+		return (NULL);
+	line_len = get_line_len(lst);
+	line = (char *)malloc(line_len + 1);
+	if (line == NULL)
+		return (NULL);
+	copy_line_to_buf(lst, line);
+	return (line);
 }
 
 void	insert_to_list(t_list **lst, char *content)
@@ -35,7 +45,8 @@ void	insert_to_list(t_list **lst, char *content)
 		*lst = new_node;
 	else
 		last_node->next = new_node;
-	return ;
+	new_node->content = content;
+	new_node->next = NULL;
 }
 
 void	generate_list(t_list **lst, int fd)
@@ -45,7 +56,7 @@ void	generate_list(t_list **lst, int fd)
 
 	while (!found_newline(*lst))
 	{
-		buf = malloc(BUFFER_SIZE + 1);
+		buf = (char *)malloc(BUFFER_SIZE + 1);
 		if (buf == NULL)
 			return ;
 		bytes_read = read(fd, buf, BUFFER_SIZE);
