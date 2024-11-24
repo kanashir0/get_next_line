@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyasuhir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:14:07 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/11/02 17:00:15 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:33:20 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ char	*get_line_from_list(t_list *lst)
 
 void	insert_to_list(t_list **lst, char *content)
 {
+	t_list	*last_node;
+	t_list	*new_node;
+
+	last_node = get_last_node(*lst);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return ;
+	if (last_node == NULL)
+		*lst = new_node;
+	else
+		last_node->next = new_node;
 	return ;
 }
 
@@ -38,8 +49,7 @@ void	generate_list(t_list **lst, int fd)
 		if (buf == NULL)
 			return ;
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		// TODO: Check for read returning error (-1)
-		if (!bytes_read)
+		if (bytes_read <= 0)
 		{
 			free(buf);
 			return ;
@@ -53,7 +63,7 @@ char	*get_next_line(int fd)
 {
 	static t_list	*lst;
 	char			*line;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	generate_list(&lst, fd);

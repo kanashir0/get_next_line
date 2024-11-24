@@ -3,11 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyasuhir <gyasuhir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:17:24 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/11/23 17:17:27 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:25:36 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 
+int	found_newline(t_list *lst)
+{
+	return (0);
+}
