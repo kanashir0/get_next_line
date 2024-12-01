@@ -6,7 +6,7 @@
 /*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:14:07 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/12/01 11:09:19 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/12/01 13:45:03 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	clear_list(t_list **lst)
 
 	i = 0;
 	j = 0;
+	if (!lst || !*lst)
+		return ;
 	last_node = get_last_node(*lst);
 	new_content = (char *)malloc(BUFFER_SIZE + 1);
 	new_node = (t_list *)malloc(sizeof(t_list));
@@ -81,6 +83,9 @@ void	generate_list(t_list **lst, int fd)
 		if (bytes_read <= 0)
 		{
 			free(buf);
+			if (bytes_read == 0)
+				return ;
+			clear_list(lst);
 			return ;
 		}
 		buf[bytes_read] = '\0';
@@ -93,7 +98,7 @@ char	*get_next_line(int fd)
 	static t_list	*lst;
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	generate_list(&lst, fd);
 	if (lst == NULL)
