@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyasuhir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:01:15 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/11/02 15:03:08 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:11:19 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,23 @@ typedef struct s_list
 }					t_list;
 
 char	*get_next_line(int fd);
+
+void	generate_list(t_list **lst, int fd);
+
+void	insert_to_list(t_list **lst, char *content);
+
+char	*get_line_from_list(t_list *lst);
+
+void	clear_list(t_list **lst);
+
+void	free_all(t_list **lst, t_list *new_lst, char *content);
+
+void	copy_line_to_buf(t_list *lst, char *buf);
+
+int		get_line_len(t_list *lst);
+
+t_list	*get_last_node(t_list *lst);
+
+int		found_newline(t_list *lst);
 
 #endif

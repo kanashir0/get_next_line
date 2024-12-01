@@ -6,7 +6,7 @@
 /*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 15:14:07 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/11/24 13:53:28 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:09:19 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,25 @@
 
 void	clear_list(t_list **lst)
 {
-	return ;
+	t_list	*last_node;
+	t_list	*new_node;
+	char	*new_content;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	last_node = get_last_node(*lst);
+	new_content = (char *)malloc(BUFFER_SIZE + 1);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	while (last_node->content[i] && last_node->content[i] != '\n')
+		i++;
+	while (last_node->content[i] && last_node->content[++i])
+		new_content[j++] = last_node->content[i];
+	new_content[j] = '\0';
+	new_node->content = new_content;
+	new_node->next = NULL;
+	free_all(lst, new_node, new_content);
 }
 
 char	*get_line_from_list(t_list *lst)
