@@ -6,7 +6,7 @@
 /*   By: gyasuhir <gyasuhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 17:20:45 by gyasuhir          #+#    #+#             */
-/*   Updated: 2024/12/01 13:02:21 by gyasuhir         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:35:51 by gyasuhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int main(void)
     int j = 0;
 
     fd = open("my_text.txt", O_RDONLY);
-    while (j < 9)
+    while ((line = get_next_line(fd)) != NULL)
     {
-        line = get_next_line(fd);
+        // line = get_next_line(fd);
         printf("line %d -> %s", i++, line);
         free(line);
         j++;
